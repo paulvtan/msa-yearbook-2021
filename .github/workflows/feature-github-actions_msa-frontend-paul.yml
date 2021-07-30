@@ -6,11 +6,15 @@ name: Azure App Service - msa-frontend-paul(Production), Build and deploy NodeJS
 on:
   push:
     branches:
-      - feature/github-actions
+      - main
+      - feature/*
 
 jobs:
   build-and-deploy:
     runs-on: windows-latest
+    default:
+      run:
+        working-directory: "./frontend"
 
     steps:
     # checkout the repo
@@ -35,5 +39,5 @@ jobs:
         app-name: msa-frontend-paul
         slot-name: Production
         publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_71D2456C5F8A460093F31061F901C5D6 }}
-        package: .
+        package: "./frontend/build"
 
